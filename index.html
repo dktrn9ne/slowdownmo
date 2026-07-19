@@ -857,6 +857,7 @@
     beatCurrent = (i + BEATS.length) % BEATS.length;
     const b = BEATS[beatCurrent];
     beatTitleEl.textContent = b.title;
+    beatTitleEl.style.color = '';
     beatAudio.src = b.file;
     setActiveBeatTab();
     beatProgressFill.style.width = '0%';
@@ -864,6 +865,11 @@
     beatDurationEl.textContent = '0:00';
     if(autoplay) playBeat();
   }
+
+  beatAudio.addEventListener('error', ()=>{
+    beatTitleEl.textContent = `Couldn't load "${BEATS[beatCurrent].title}" — check that the beats/ folder is uploaded next to index.html`;
+    beatTitleEl.style.color = '#ff6a10';
+  });
 
   function playBeat(){
     beatAudio.play().then(()=>{
