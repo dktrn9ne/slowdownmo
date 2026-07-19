@@ -19,6 +19,7 @@
     --bone-dim:#b9b1a0;
     --steel:#8f8f89;
     --teal:#1f6e68;
+    --hwy-green:#1c5c3f;
     --radius-sign:14px;
     --edge: 6vw;
   }
@@ -257,6 +258,210 @@
   .stat .k{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); }
   .stat .v{ font-size:17px; color:var(--bone); margin-top:4px; }
 
+  /* ---- Pit stop / player ---- */
+  .pitstop{ background:var(--void-2); border-top:1px solid rgba(143,143,137,.15); }
+  .player{
+    display:grid; grid-template-columns:1fr 1.15fr; gap:44px;
+    margin-top:44px; align-items:start;
+  }
+  .now-playing{
+    border:1px solid rgba(143,143,137,.25); border-radius:10px;
+    padding:26px; background:rgba(255,255,255,.02);
+    position:sticky; top:24px;
+  }
+  .np-tag{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:.16em; text-transform:uppercase; }
+  .np-title{ font-size:19px; color:var(--bone); margin:10px 0 4px; line-height:1.3; min-height:1.3em; }
+  .np-genre{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--steel); letter-spacing:.04em; min-height:1.4em; }
+
+  .transport{ display:flex; align-items:center; gap:12px; margin-top:24px; }
+  .tbtn{
+    width:36px; height:36px; border-radius:50%; flex:none;
+    background:radial-gradient(circle at 32% 28%, #1c1815, #0b0a08 72%);
+    border:1.5px solid rgba(236,230,216,.3);
+    color:var(--bone);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition:border-color .15s ease, color .15s ease;
+  }
+  .tbtn:hover{ border-color:var(--orange); color:var(--orange); }
+  .tbtn svg{ width:13px; height:13px; fill:currentColor; }
+  .np-hint{
+    flex:1; text-align:center;
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--steel);
+  }
+
+  .frame-wrap{
+    margin-top:18px; border-radius:8px; overflow:hidden;
+    border:1px solid rgba(143,143,137,.25); background:#0d0c0a;
+  }
+  .frame-wrap iframe{ width:100%; height:260px; display:block; border:0; }
+
+  .np-note{ margin-top:18px; font-size:12.5px; color:var(--bone-dim); line-height:1.6; }
+  .np-note a{ color:var(--orange); text-decoration:none; border-bottom:1px solid var(--orange-dim); }
+
+  .tracklist{
+    max-height:560px; overflow-y:auto;
+    border:1px solid rgba(143,143,137,.18); border-radius:10px;
+  }
+  .track{
+    display:flex; align-items:center; gap:14px;
+    padding:13px 16px; border-bottom:1px solid rgba(143,143,137,.12);
+    cursor:pointer; transition:background .15s ease;
+  }
+  .track:last-child{ border-bottom:none; }
+  .track:hover{ background:rgba(255,255,255,.03); }
+  .track.active{ background:rgba(249,86,12,.09); }
+  .track .idx{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--steel); width:20px; flex:none; }
+  .track .t-meta{ flex:1; min-width:0; }
+  .track .t-title{ font-size:13.5px; color:var(--bone); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .track .t-tags{
+    font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--steel);
+    letter-spacing:.03em; text-transform:uppercase; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis; margin-top:2px;
+  }
+  .track .t-play{
+    width:24px; height:24px; border-radius:50%; flex:none;
+    border:1.5px solid rgba(143,143,137,.4);
+    display:flex; align-items:center; justify-content:center; color:var(--steel);
+  }
+  .track .t-play svg{ width:8px; height:8px; fill:currentColor; }
+  .track.active .t-play{ border-color:var(--orange); color:var(--orange); }
+  .track.broken{ opacity:.35; pointer-events:none; }
+  .track.broken .t-tags::after{ content:' · unavailable'; }
+
+  /* ---- Offer comparison: DETOUR / STRAIGHTAWAY ---- */
+  .offer-compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:24px;
+    margin-top:36px;
+  }
+  .offer-card{
+    border:1.5px solid var(--orange-dim);
+    border-radius:12px; padding:30px 28px;
+    background:linear-gradient(155deg, #1a1613, #0c0a08);
+    position:relative;
+  }
+  .offer-card.straight{ border-color:var(--hwy-green); }
+  .offer-badge{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--void);
+    background:var(--orange); border-radius:4px; padding:5px 10px 5px 9px;
+  }
+  .offer-card.straight .offer-badge{ background:var(--hwy-green); color:var(--bone); }
+  .offer-badge::before{
+    content:''; width:5px; height:5px; border-radius:50%;
+    background:rgba(0,0,0,.4); flex:none;
+  }
+  .offer-card.straight .offer-badge::before{ background:rgba(236,230,216,.5); }
+  .offer-name{
+    font-family:'Archivo Black', sans-serif; font-weight:400; text-transform:uppercase;
+    font-size:26px; letter-spacing:-.01em; margin:16px 0 8px;
+  }
+  .offer-for{ font-size:13.5px; color:var(--bone-dim); margin-bottom:16px; }
+  .offer-price{ font-family:'IBM Plex Mono',monospace; font-size:22px; color:var(--orange); margin-bottom:16px; }
+  .offer-card.straight .offer-price{ color:var(--hwy-green); }
+  .offer-list{ list-style:none; display:grid; gap:9px; }
+  .offer-list li{ font-size:14px; color:var(--bone-dim); padding-left:18px; position:relative; line-height:1.5; }
+  .offer-list li::before{
+    content:''; position:absolute; left:0; top:8px;
+    width:6px; height:6px; background:var(--orange);
+  }
+  .offer-card.straight .offer-list li::before{ background:var(--hwy-green); }
+
+  /* ---- Barricade beat player ---- */
+  .barricade-section{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); }
+
+  .plank{
+    margin-top:44px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 20px 44px rgba(0,0,0,.55);
+  }
+
+  .plank-face{
+    position:relative;
+    height:56px;
+    background:repeating-linear-gradient(
+      135deg,
+      #ff6a10 0 30px,
+      #ff6a10 30px 32px,
+      #100e0c 32px 34px,
+      #f2ede0 34px 64px,
+      #f2ede0 64px 66px,
+      #100e0c 66px 68px
+    );
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .plank-face::before{
+    /* retroreflective sheen sweep */
+    content:'';
+    position:absolute; inset:-40% -20%;
+    background:linear-gradient(115deg, transparent 40%, rgba(255,255,255,.55) 48%, transparent 58%);
+    background-size:220% 220%;
+    background-position:0% 0%;
+    mix-blend-mode:overlay;
+    animation:sheen 7s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes sheen{
+    0%, 100%{ background-position:0% 0%; }
+    50%{ background-position:100% 60%; }
+  }
+  .plank-face .bolt{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:15px; height:15px; border-radius:50%;
+    background:radial-gradient(circle at 34% 30%, #e8e8e4, #4a4a46 65%, #201f1c 100%);
+    box-shadow:0 2px 3px rgba(0,0,0,.6), inset 0 0 0 1px rgba(0,0,0,.4);
+    z-index:2;
+  }
+  .plank-face .bolt.l{ left:20px; }
+  .plank-face .bolt.r{ right:20px; }
+  .plank-label{
+    position:relative; z-index:2;
+    font-family:'Archivo Black', sans-serif; font-weight:400;
+    font-size:clamp(14px,2.4vw,20px); letter-spacing:.06em; text-transform:uppercase;
+    color:#0a0908;
+    -webkit-text-stroke:.5px rgba(255,255,255,.35);
+    text-shadow:0 1px 0 rgba(255,255,255,.25);
+  }
+
+  .plank-body{
+    background:var(--void-2);
+    padding:26px 28px 28px;
+    border:1px solid #2a2521; border-top:none;
+    border-radius:0 0 10px 10px;
+  }
+
+  .beat-tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .beat-tab{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--bone-dim);
+    background:rgba(255,255,255,.03); border:1.5px solid rgba(143,143,137,.25); border-radius:5px;
+    padding:9px 16px; cursor:pointer;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .beat-tab:hover{ border-color:var(--orange-dim); color:var(--bone); }
+  .beat-tab.active{ border-color:var(--orange); color:var(--orange); background:rgba(249,86,12,.08); }
+
+  .beat-transport{ display:flex; align-items:center; gap:14px; }
+  .beat-title{ font-size:17px; color:var(--bone); margin-bottom:18px; }
+
+  .beat-progress-wrap{ flex:1; display:flex; align-items:center; gap:10px; min-width:0; }
+  .beat-progress{
+    flex:1; height:5px; background:rgba(143,143,137,.22); border-radius:3px;
+    position:relative; cursor:pointer;
+  }
+  .beat-progress-fill{
+    position:absolute; left:0; top:0; bottom:0; width:0%;
+    background:linear-gradient(90deg, var(--orange), #ffb26a); border-radius:3px;
+  }
+  .beat-time{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--steel); min-width:34px; text-align:center; flex:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    .plank-face::before{ animation:none; }
+  }
+
   /* ---- Services ---- */
   .services{ background:linear-gradient(180deg, var(--void), var(--void-2)); border-top:1px solid rgba(143,143,137,.15); }
   .service-grid{
@@ -348,6 +553,12 @@
     .catalog-row{ flex-direction:column; align-items:flex-start; }
     section{ padding:80px var(--edge); }
     footer{ flex-direction:column; align-items:flex-start; }
+
+    .player{ grid-template-columns:1fr; gap:28px; }
+    .now-playing{ position:static; }
+    .offer-compare{ grid-template-columns:1fr; }
+    .beat-transport{ flex-wrap:wrap; }
+    .beat-progress-wrap{ order:1; flex-basis:100%; margin-top:14px; }
 
     .route::before{ left:20px; }
     .mile, .mile.flip{ grid-template-columns:40px 1fr; column-gap:16px; margin-bottom:52px; }
@@ -513,9 +724,87 @@
   </div>
 </section>
 
+<section class="pitstop" id="listen">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">03</span> Pit stop</span>
+    <h2 class="headline">Rough drafts.<br>Real <span class="accent">range.</span></h2>
+    <p class="lede">34 quick AI sketches — the raw material, kept raw. This is roughly what shows up before a DETOUR rebuild.</p>
+
+    <div class="player">
+      <div class="now-playing">
+        <div class="np-tag">Now playing</div>
+        <div class="np-title" id="npTitle">Select a track</div>
+        <div class="np-genre" id="npGenre">—</div>
+
+        <div class="transport">
+          <button class="tbtn" id="btnPrev" aria-label="Previous track">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6L20 6v12z"/></svg>
+          </button>
+          <span class="np-hint">pick a track, or browse</span>
+          <button class="tbtn" id="btnNext" aria-label="Next track">
+            <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM4 6l10.5 6L4 18z"/></svg>
+          </button>
+        </div>
+
+        <div class="frame-wrap">
+          <iframe id="playerFrame" src="https://suno.com/embed/6e9531d3-f774-4403-a9f4-56b54689dd6a"
+            loading="lazy" allow="autoplay; encrypted-media" title="Suno track player"></iframe>
+        </div>
+
+        <p class="np-note">Generated with Suno — kept as reference sketches, not finished records.<br>
+          <a id="npLink" href="https://suno.com/song/6e9531d3-f774-4403-a9f4-56b54689dd6a" target="_blank" rel="noopener">Open this track on Suno →</a>
+          &nbsp;·&nbsp;
+          <a href="https://suno.com/playlist/c9ea3fb2-d25b-4c81-9f37-7ce61a57677c" target="_blank" rel="noopener">full playlist →</a>
+        </p>
+      </div>
+
+      <div class="tracklist" id="tracklist"></div>
+    </div>
+  </div>
+</section>
+
+<section class="barricade-section" id="beats">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">04</span> Barricade</span>
+    <h2 class="headline">Same instincts.<br><span class="accent">No shortcuts.</span></h2>
+    <p class="lede">Three finished beats, built the long way — this is what leaves the shop.</p>
+
+    <div class="plank">
+      <div class="plank-face">
+        <span class="bolt l"></span>
+        <span class="plank-label">Slow Down, Mo! — Beats</span>
+        <span class="bolt r"></span>
+      </div>
+      <div class="plank-body">
+        <div class="beat-tabs" id="beatTabs"></div>
+        <div class="beat-title" id="beatTitle">charm</div>
+        <div class="beat-transport">
+          <button class="tbtn" id="beatPrev" aria-label="Previous beat">
+            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6L20 6v12z"/></svg>
+          </button>
+          <button class="tbtn play" id="beatPlay" aria-label="Play or pause" style="width:46px;height:46px;border-color:var(--orange);color:var(--orange);">
+            <svg id="beatIconPlay" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="beatIconPause" viewBox="0 0 24 24" style="width:16px;height:16px;display:none"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+          </button>
+          <button class="tbtn" id="beatNext" aria-label="Next beat">
+            <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM4 6l10.5 6L4 18z"/></svg>
+          </button>
+          <div class="beat-progress-wrap">
+            <span class="beat-time" id="beatCurrent">0:00</span>
+            <div class="beat-progress" id="beatProgress">
+              <div class="beat-progress-fill" id="beatProgressFill"></div>
+            </div>
+            <span class="beat-time" id="beatDuration">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="services" id="services">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">03</span> Services rendered</span>
+    <span class="plate"><span class="num">05</span> Services rendered</span>
     <h2 class="headline">Pick your <span class="accent">exit.</span></h2>
     <div class="service-grid">
       <div class="service">
@@ -539,12 +828,39 @@
         <p>Cleared, catalog‑ready instrumentals and songs for film, TV, and brand placement.</p>
       </div>
     </div>
+
+    <div class="offer-compare">
+      <div class="offer-card">
+        <span class="offer-badge">Detour</span>
+        <div class="offer-name">AI Reproduction</div>
+        <div class="offer-for">You showed up with an AI draft.</div>
+        <div class="offer-price">$700 – $1,200</div>
+        <ul class="offer-list">
+          <li>Instrumental rebuilt from scratch — real playing, not a prompt</li>
+          <li>Vocal re‑cut or humanized where needed</li>
+          <li>Full mix &amp; master included</li>
+          <li>Ownable, registrable, and safe to distribute</li>
+        </ul>
+      </div>
+      <div class="offer-card straight">
+        <span class="offer-badge">Straightaway</span>
+        <div class="offer-name">Mix &amp; Mastering</div>
+        <div class="offer-for">You showed up with the real thing.</div>
+        <div class="offer-price">$200 – $350</div>
+        <ul class="offer-list">
+          <li>Vocal‑forward balance, EQ, and compression</li>
+          <li>Master tuned for streaming loudness</li>
+          <li>Still hits on a car system</li>
+          <li>Fastest turnaround on the menu</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="catalog" id="catalog">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">04</span> Miles logged</span>
+    <span class="plate"><span class="num">06</span> Miles logged</span>
     <div class="catalog-row">
       <div>
         <h2 class="headline">8 releases.<br>Still <span class="accent">counting.</span></h2>
@@ -562,7 +878,7 @@
 
 <section class="book" id="book">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">05</span> Last stop</span>
+    <span class="plate"><span class="num">07</span> Last stop</span>
     <h2 class="headline">Slow down.<br><span class="accent">Book the session.</span></h2>
     <p class="lede">Studio time, beat leases, and full productions — Austin‑based, working worldwide.</p>
     <div class="book-actions">
@@ -591,6 +907,199 @@
   } else {
     items.forEach(i=>i.classList.add('in'));
   }
+</script>
+
+<script>
+  const TRACKS = [
+    { id:'6e9531d3-f774-4403-a9f4-56b54689dd6a', title:'INYAMI 153 (Remix)', tags:'indie pop · soft rock · trap bridge' },
+    { id:'53a93931-3a9b-4e0b-97d3-f3bad62cf9b8', title:'park that', tags:'LA pop · rnb · trap drums' },
+    { id:'1758c93b-8971-47b2-9a27-3b8345865b00', title:'Untitled', tags:'r&b · trap · soul' },
+    { id:'a7214d8a-78bf-433b-a50e-64dc3ce50fb8', title:'Untitled', tags:'japanese · west coast hiphop · trap' },
+    { id:'a99e1e25-9c6c-40cf-9bf4-db333cc52c5d', title:'Tender screw (Remix)', tags:'rnb · trap · hiphop' },
+    { id:'7562ba47-dd38-48ed-b68c-da43375451c0', title:'bluebonnet (Remix)', tags:'rnb · trap · soul' },
+    { id:'87d0648c-6f5a-4539-995d-1ee92806b4f2', title:'Untitled', tags:'rnb · trap · soul' },
+    { id:'9e7c5cd9-f16c-40b2-98fd-1a6ba7061a14', title:'jmesix 116 (Remix)', tags:'rnb · trap · soul' },
+    { id:'e18296f9-85d0-45e0-8167-f0e30eba639e', title:'Untitled', tags:'japanese · anime · rnb · trap' },
+    { id:'9049c1b3-d32c-4701-a31e-2faa810bc21a', title:'Slow Down Mo 1', tags:'trap · heavy 808 · 8‑bit arcade' },
+    { id:'e57df6df-7266-4cb9-8e3b-7856becbf032', title:'Untitled', tags:'experimental r&b · chillwave · 5/4' },
+    { id:'351be776-08b6-474d-a065-3ee799b89dbf', title:'Untitled', tags:'r&b · plug · trap · 5/4' },
+    { id:'fb22ccff-b50d-4f57-be4d-b4fc57f48f6d', title:'Untitled', tags:'r&b · plug · trap · 5/4' },
+    { id:'c20eddce-ee13-4a1e-9fda-2b8fb02936d1', title:'Untitled', tags:'experimental r&b · plug · trap' },
+    { id:'45287ff6-3d86-40a3-9698-fae878594f55', title:'Untitled', tags:'experimental r&b · plug · trap' },
+    { id:'d3ea33ef-de28-412b-b3e4-83bb3ee8b1ea', title:'prodbyzapz1 83 (Remix)', tags:'experimental r&b · trap · soul' },
+    { id:'f693eb79-ddc5-490b-8035-222070789863', title:'Untitled', tags:'acoustic · r&b · soul · trap' },
+    { id:'687f9105-7443-4ed0-a2a8-1982ed981a1b', title:'charm (Cover)', tags:'contemporary r&b · trap · 808' },
+    { id:'bc793434-8154-4d1f-9175-f010ef16dce7', title:'Untitled', tags:"80s synth‑r&b · Prince‑style" },
+    { id:'2ab382ca-843d-41d7-a5bd-18e90a0762f1', title:'Untitled', tags:'christmas · rnb · plug · trap' },
+    { id:'2ac4c9a3-c12c-4614-8db5-eccaf861e05c', title:'Untitled', tags:'christmas · rnb · plug · trap' },
+    { id:'efb7edc5-f2cc-4f69-bd64-427670dde9f1', title:'Untitled', tags:'hip hop · west coast · g funk' },
+    { id:'a4a3d3f8-218c-4a58-a8cf-792a92870566', title:'Untitled', tags:'plug · rnb · trap' },
+    { id:'31434e37-0388-4b84-8fd7-6f7a7620db62', title:'iamroofa 127 (R&B Ether Mix)', tags:'atmospheric r&b · sub‑bass' },
+    { id:'b1d0e897-b264-4bfe-8f2f-b70fea145f98', title:'ReelAudio‑39300 (Midnight Trap Soul Mix)', tags:'rnb trap‑soul · late night' },
+    { id:'32308c16-403c-48c9-ab61-8f01fcc1bd1a', title:'jmesix 116', tags:'rnb · baile funk · trap' },
+    { id:'67155056-efce-4e98-98b9-89a47f76f53f', title:'Sammy Davis Jr', tags:'rnb · trap · soul' },
+    { id:'20876d01-d34d-47bd-9179-eb6bd7469bdb', title:'Whenever U Ready (Interlude)', tags:'rnb · trap · singer‑songwriter' },
+    { id:'573a3cc7-6fa6-49ba-87ab-aab434b87730', title:'SpliffBanger', tags:'trap · drum and bass · rnb' },
+    { id:'764735b3-f0d3-42c6-abd9-51de8b1061f7', title:'SpliffBanger', tags:'rnb · trap · 808 · synth' },
+    { id:'a0bbe0fe-59f5-4fbc-a343-41426c7f1f7c', title:'Comeback', tags:'contemporary r&b · neo‑soul' },
+    { id:'1e612070-a5be-4270-b44e-b731308609e1', title:"Comeback (Plugg'n'B Drill Mix)", tags:"melodic drill · plugg'n'b" },
+    { id:'2c1d1a9f-937d-4725-b9f9-1914c6e0799d', title:'Yanked', tags:'rnb · plug · trap' },
+    { id:'df9ea827-ff6f-4e09-a017-f8de4b96fcb8', title:'audio [music] (1)', tags:'future bass · trap · 808' }
+  ];
+
+  let current = 0;
+
+  const listEl = document.getElementById('tracklist');
+  const npTitle = document.getElementById('npTitle');
+  const npGenre = document.getElementById('npGenre');
+  const playerFrame = document.getElementById('playerFrame');
+  const npLink = document.getElementById('npLink');
+
+  function embedUrl(id){ return `https://suno.com/embed/${id}`; }
+  function songUrl(id){ return `https://suno.com/song/${id}`; }
+
+  function renderList(){
+    listEl.innerHTML = TRACKS.map((t,i)=>`
+      <div class="track" data-i="${i}" role="button" tabindex="0">
+        <span class="idx">${String(i+1).padStart(2,'0')}</span>
+        <span class="t-play">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="t-meta">
+          <div class="t-title">${t.title}</div>
+          <div class="t-tags">${t.tags}</div>
+        </span>
+      </div>
+    `).join('');
+    listEl.querySelectorAll('.track').forEach(el=>{
+      el.addEventListener('click', ()=> loadTrack(parseInt(el.dataset.i, 10), true));
+      el.addEventListener('keydown', (e)=>{ if(e.key==='Enter') loadTrack(parseInt(el.dataset.i,10), true); });
+    });
+  }
+
+  function setActiveRow(){
+    listEl.querySelectorAll('.track').forEach(el=>{
+      el.classList.toggle('active', parseInt(el.dataset.i,10) === current);
+    });
+    const row = listEl.querySelector(`.track[data-i="${current}"]`);
+    if(row) row.scrollIntoView({ block:'nearest' });
+  }
+
+  function loadTrack(i){
+    if(i < 0 || i >= TRACKS.length) return;
+    current = i;
+    const t = TRACKS[current];
+    npTitle.textContent = t.title;
+    npGenre.textContent = t.tags;
+    playerFrame.src = embedUrl(t.id);
+    npLink.href = songUrl(t.id);
+    setActiveRow();
+  }
+
+  function next(){ loadTrack((current + 1) % TRACKS.length); }
+  function prev(){ loadTrack((current - 1 + TRACKS.length) % TRACKS.length); }
+
+  document.getElementById('btnNext').addEventListener('click', next);
+  document.getElementById('btnPrev').addEventListener('click', prev);
+
+  renderList();
+  loadTrack(0);
+</script>
+
+<script>
+  const BEATS = [
+    { file:'beats/charm.mp3', title:'charm' },
+    { file:'beats/Demaris.mp3', title:'Demaris' },
+    { file:'beats/Comeback.mp3', title:'Comeback' }
+  ];
+
+  const beatAudio = new Audio();
+  beatAudio.preload = 'metadata';
+  let beatCurrent = 0;
+  let beatPlaying = false;
+
+  const beatTabs = document.getElementById('beatTabs');
+  const beatTitleEl = document.getElementById('beatTitle');
+  const beatPlayBtn = document.getElementById('beatPlay');
+  const beatIconPlay = document.getElementById('beatIconPlay');
+  const beatIconPause = document.getElementById('beatIconPause');
+  const beatProgress = document.getElementById('beatProgress');
+  const beatProgressFill = document.getElementById('beatProgressFill');
+  const beatCurrentEl = document.getElementById('beatCurrent');
+  const beatDurationEl = document.getElementById('beatDuration');
+
+  function fmtBeatTime(sec){
+    if(!isFinite(sec) || sec < 0) return '0:00';
+    const m = Math.floor(sec/60);
+    const s = Math.floor(sec%60).toString().padStart(2,'0');
+    return `${m}:${s}`;
+  }
+
+  function renderBeatTabs(){
+    beatTabs.innerHTML = BEATS.map((b,i)=>
+      `<button class="beat-tab" data-i="${i}">${b.title}</button>`
+    ).join('');
+    beatTabs.querySelectorAll('.beat-tab').forEach(el=>{
+      el.addEventListener('click', ()=> loadBeat(parseInt(el.dataset.i,10), true));
+    });
+  }
+
+  function setActiveBeatTab(){
+    beatTabs.querySelectorAll('.beat-tab').forEach(el=>{
+      el.classList.toggle('active', parseInt(el.dataset.i,10) === beatCurrent);
+    });
+  }
+
+  function loadBeat(i, autoplay){
+    beatCurrent = (i + BEATS.length) % BEATS.length;
+    const b = BEATS[beatCurrent];
+    beatTitleEl.textContent = b.title;
+    beatAudio.src = b.file;
+    setActiveBeatTab();
+    beatProgressFill.style.width = '0%';
+    beatCurrentEl.textContent = '0:00';
+    beatDurationEl.textContent = '0:00';
+    if(autoplay) playBeat();
+  }
+
+  function playBeat(){
+    beatAudio.play().then(()=>{
+      beatPlaying = true;
+      beatIconPlay.style.display = 'none';
+      beatIconPause.style.display = '';
+    }).catch(()=>{});
+  }
+  function pauseBeat(){
+    beatAudio.pause();
+    beatPlaying = false;
+    beatIconPlay.style.display = '';
+    beatIconPause.style.display = 'none';
+  }
+
+  beatPlayBtn.addEventListener('click', ()=> beatPlaying ? pauseBeat() : playBeat());
+  document.getElementById('beatNext').addEventListener('click', ()=> loadBeat(beatCurrent + 1, true));
+  document.getElementById('beatPrev').addEventListener('click', ()=> loadBeat(beatCurrent - 1, true));
+
+  beatAudio.addEventListener('timeupdate', ()=>{
+    if(!beatAudio.duration) return;
+    const pct = (beatAudio.currentTime / beatAudio.duration) * 100;
+    beatProgressFill.style.width = pct + '%';
+    beatCurrentEl.textContent = fmtBeatTime(beatAudio.currentTime);
+  });
+  beatAudio.addEventListener('loadedmetadata', ()=>{
+    beatDurationEl.textContent = fmtBeatTime(beatAudio.duration);
+  });
+  beatAudio.addEventListener('ended', ()=> loadBeat(beatCurrent + 1, true));
+
+  beatProgress.addEventListener('click', (e)=>{
+    if(!beatAudio.duration) return;
+    const rect = beatProgress.getBoundingClientRect();
+    const frac = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    beatAudio.currentTime = frac * beatAudio.duration;
+  });
+
+  renderBeatTabs();
+  loadBeat(0, false);
 </script>
 
 </body>
