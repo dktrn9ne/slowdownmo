@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLOW DOWN, MO! — Production House</title>
+<meta name="description" content="SLOW DOWN, MO! — Alt-R&B and Pluggnb production house. DKTR N9NE, Austin, TX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0908;
+    --void-2:#141210;
+    --orange:#f9560c;
+    --orange-dim:#c2440d;
+    --rust:#5c2308;
+    --bone:#ece6d8;
+    --bone-dim:#b9b1a0;
+    --steel:#8f8f89;
+    --teal:#1f6e68;
+    --radius-sign:14px;
+    --edge: 6vw;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--void);
+    color:var(--bone);
+    font-family:'Space Grotesk', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--orange); color:var(--void); }
+
+  a{ color:inherit; }
+
+  .mono{ font-family:'IBM Plex Mono', monospace; }
+
+  /* ---------- Signature: sign-plate label ---------- */
+  .plate{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--bone);
+    background:linear-gradient(155deg, #1a1613, #0c0a08);
+    border:1.5px solid var(--orange-dim);
+    border-radius:6px;
+    padding:8px 16px 8px 12px;
+    position:relative;
+    box-shadow:0 2px 0 rgba(0,0,0,.6), inset 0 0 0 1px rgba(249,86,12,.08);
+  }
+  .plate::before, .plate::after{
+    content:'';
+    width:5px; height:5px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #d9d5c8, var(--steel) 70%);
+    box-shadow:0 1px 1px rgba(0,0,0,.7);
+    flex:none;
+  }
+  .plate .num{ color:var(--orange); font-weight:600; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    overflow:hidden;
+    padding:8vh var(--edge) 6vh;
+  }
+  .hero video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    filter:saturate(1.05) contrast(1.05);
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:
+      radial-gradient(120% 90% at 50% 38%, rgba(10,9,8,.15), rgba(10,9,8,.82) 62%, rgba(10,9,8,.97) 100%),
+      linear-gradient(180deg, rgba(10,9,8,.55) 0%, rgba(10,9,8,.2) 22%, rgba(10,9,8,.35) 70%, var(--void) 100%);
+    z-index:1;
+  }
+  .hero-content{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+
+  .logo-wrap{
+    width:min(64vw, 420px);
+    filter:drop-shadow(0 18px 34px rgba(0,0,0,.65)) drop-shadow(0 2px 0 rgba(0,0,0,.4));
+    transform:rotate(-3deg);
+    animation:sign-drop .9s cubic-bezier(.2,.9,.25,1.15) both;
+  }
+  .logo-wrap img{ width:100%; display:block; }
+
+  @keyframes sign-drop{
+    0%{ transform:translateY(-46px) rotate(-9deg); opacity:0; }
+    62%{ transform:translateY(4px) rotate(-1deg); opacity:1; }
+    100%{ transform:translateY(0) rotate(-3deg); opacity:1; }
+  }
+
+  .hero-tag{
+    margin-top:30px;
+    font-size:clamp(13px,1.6vw,15px);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    animation:fade-up .8s .5s both ease-out;
+  }
+  .hero-tag b{ color:var(--orange); font-weight:600; }
+  .hero-tag .sep{ color:var(--rust); padding:0 10px; }
+
+  @keyframes fade-up{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    z-index:2;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--bone-dim);
+    animation:fade-up .8s .9s both ease-out;
+  }
+  .scroll-cue .stick{
+    width:1px; height:34px;
+    background:linear-gradient(var(--orange), transparent);
+    animation:drip 1.8s ease-in-out infinite;
+  }
+  @keyframes drip{
+    0%,100%{ transform:scaleY(1); transform-origin:top; opacity:.9; }
+    50%{ transform:scaleY(.55); transform-origin:top; opacity:.45; }
+  }
+
+  /* ---------- Sections ---------- */
+  section{ position:relative; padding:min(14vh,120px) var(--edge); }
+  .section-inner{ max-width:1120px; margin:0 auto; }
+
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  h2.headline{
+    font-family:'Archivo Black', sans-serif;
+    font-weight:400;
+    font-size:clamp(34px, 5.4vw, 64px);
+    line-height:.98;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+    margin:22px 0 26px;
+    color:var(--bone);
+  }
+  h2.headline .accent{ color:var(--orange); }
+
+  .lede{
+    font-size:clamp(16px,1.9vw,19px);
+    line-height:1.65;
+    color:var(--bone-dim);
+    max-width:62ch;
+  }
+  .lede strong{ color:var(--bone); font-weight:600; }
+
+  /* ---- Lore / route ---- */
+  .lore{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); }
+  .route{ position:relative; margin-top:56px; }
+  .route::before{
+    content:'';
+    position:absolute; left:50%; top:6px; bottom:6px; width:2px;
+    background:repeating-linear-gradient(var(--orange-dim) 0 14px, transparent 14px 28px);
+    opacity:.55; transform:translateX(-50%);
+  }
+  .mile{
+    position:relative;
+    display:grid; grid-template-columns:1fr 64px 1fr;
+    align-items:center;
+    margin-bottom:76px;
+  }
+  .mile:last-child{ margin-bottom:0; }
+  .mile-marker{
+    grid-column:2; justify-self:center;
+    width:48px; height:48px; border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #1c1815, #0b0a08 72%);
+    border:2px solid var(--orange);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono', monospace; font-size:10.5px; font-weight:600;
+    color:var(--orange); letter-spacing:.02em;
+    box-shadow:0 0 0 7px var(--void), 0 6px 14px rgba(0,0,0,.55);
+    z-index:2; text-align:center; line-height:1.15;
+  }
+  .mile.epilogue .mile-marker{ border-color:var(--teal); color:var(--teal); }
+  .mile-media{ grid-column:1; justify-self:end; display:flex; gap:16px; flex-wrap:wrap; justify-content:flex-end; }
+  .mile-text{ grid-column:3; justify-self:start; padding-left:40px; max-width:46ch; }
+  .mile.flip .mile-media{ grid-column:3; justify-self:start; justify-content:flex-start; }
+  .mile.flip .mile-text{ grid-column:1; justify-self:end; padding-left:0; padding-right:40px; text-align:right; margin-left:auto; }
+
+  .mile-age{
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--orange); margin-bottom:8px;
+  }
+  .mile.epilogue .mile-age{ color:var(--teal); }
+  .mile-text h3{
+    font-family:'Archivo Black', sans-serif; font-weight:400; text-transform:uppercase;
+    font-size:clamp(20px,2.5vw,27px); line-height:1.08; letter-spacing:-.01em; margin-bottom:12px;
+  }
+  .mile-text p{ color:var(--bone-dim); font-size:15px; line-height:1.68; }
+  .mile-text p + p{ margin-top:12px; }
+
+  .photo-tab{
+    position:relative;
+    display:inline-block;
+    background:var(--bone);
+    padding:9px 9px 28px;
+    border-radius:2px;
+    box-shadow:0 16px 28px rgba(0,0,0,.5), 0 2px 0 rgba(0,0,0,.3);
+    flex:none;
+  }
+  .photo-tab.rot-l{ transform:rotate(-3.5deg); }
+  .photo-tab.rot-r{ transform:rotate(3deg); }
+  .photo-tab::before{
+    content:'';
+    position:absolute; top:-6px; left:50%; transform:translateX(-50%);
+    width:10px; height:10px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffb37a, var(--orange) 70%);
+    box-shadow:0 2px 4px rgba(0,0,0,.5);
+  }
+  .photo-tab img{ display:block; width:100%; border-radius:1px; }
+  .photo-tab .cap{
+    position:absolute; left:0; right:0; bottom:9px; text-align:center;
+    font-family:'IBM Plex Mono', monospace; font-size:9px; letter-spacing:.06em;
+    text-transform:uppercase; color:#332c22;
+  }
+  .photo-tab.w-lg{ width:min(46vw, 220px); }
+  .photo-tab.w-md{ width:min(34vw, 150px); }
+  .photo-tab.w-sm{ width:min(24vw, 108px); }
+
+  /* ---- Sound ---- */
+  .sound{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); }
+  .sound-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:start; }
+  .sound-stats{
+    display:grid; gap:18px; margin-top:8px;
+  }
+  .stat{
+    border-left:2px solid var(--orange-dim);
+    padding:6px 0 6px 18px;
+  }
+  .stat .k{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); }
+  .stat .v{ font-size:17px; color:var(--bone); margin-top:4px; }
+
+  /* ---- Services ---- */
+  .services{ background:linear-gradient(180deg, var(--void), var(--void-2)); border-top:1px solid rgba(143,143,137,.15); }
+  .service-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:2px;
+    margin-top:44px;
+    border:1px solid rgba(143,143,137,.18);
+    background:rgba(143,143,137,.18);
+  }
+  .service{
+    background:var(--void);
+    padding:34px 30px;
+    position:relative;
+  }
+  .service .tag-mono{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--orange);
+    letter-spacing:.14em;
+  }
+  .service h3{
+    font-family:'Archivo Black', sans-serif; font-weight:400;
+    text-transform:uppercase; font-size:22px; margin:10px 0 12px; letter-spacing:-.01em;
+  }
+  .service p{ color:var(--bone-dim); font-size:15px; line-height:1.6; max-width:38ch; }
+
+  /* ---- Catalog ---- */
+  .catalog{ background:var(--void-2); border-top:1px solid rgba(143,143,137,.15); }
+  .catalog-row{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap;
+  }
+  .catalog-cta{
+    display:inline-flex; align-items:center; gap:10px;
+    margin-top:26px;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--void); background:var(--orange);
+    padding:14px 22px; border-radius:4px;
+    text-decoration:none;
+    box-shadow:0 6px 0 var(--rust);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .catalog-cta:hover{ transform:translateY(2px); box-shadow:0 4px 0 var(--rust); }
+  .drop-card{
+    border:1px solid rgba(143,143,137,.25);
+    border-radius:10px;
+    padding:22px 24px;
+    background:rgba(255,255,255,.02);
+    max-width:320px;
+  }
+  .drop-card .tag-mono{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--teal); letter-spacing:.16em; }
+  .drop-card h4{ font-size:18px; margin:8px 0 8px; }
+  .drop-card p{ font-size:13.5px; color:var(--bone-dim); line-height:1.55; }
+
+  /* ---- Book ---- */
+  .book{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); text-align:center; }
+  .book .section-inner{ display:flex; flex-direction:column; align-items:center; }
+  .book h2.headline{ margin-top:22px; }
+  .book-actions{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:30px; }
+  .btn-primary{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--void); background:var(--orange); border:none; border-radius:4px;
+    padding:16px 28px; text-decoration:none;
+    box-shadow:0 6px 0 var(--rust);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary:hover{ transform:translateY(2px); box-shadow:0 4px 0 var(--rust); }
+  .btn-ghost{
+    font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--bone); background:transparent; border:1.5px solid rgba(236,230,216,.3); border-radius:4px;
+    padding:16px 28px; text-decoration:none;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .btn-ghost:hover{ border-color:var(--orange); color:var(--orange); }
+
+  /* ---- Footer ---- */
+  footer{
+    padding:36px var(--edge) 44px;
+    border-top:1px solid rgba(143,143,137,.15);
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+  }
+  footer .mono{ font-size:11px; letter-spacing:.1em; color:var(--steel); text-transform:uppercase; }
+  .rivet-row{ display:flex; gap:6px; }
+  .rivet-row span{
+    width:5px; height:5px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #d9d5c8, var(--steel) 70%);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:760px){
+    .sound-grid{ grid-template-columns:1fr; gap:38px; }
+    .service-grid{ grid-template-columns:1fr; }
+    .catalog-row{ flex-direction:column; align-items:flex-start; }
+    section{ padding:80px var(--edge); }
+    footer{ flex-direction:column; align-items:flex-start; }
+
+    .route::before{ left:20px; }
+    .mile, .mile.flip{ grid-template-columns:40px 1fr; column-gap:16px; margin-bottom:52px; }
+    .mile-marker, .mile.flip .mile-marker{ grid-column:1; grid-row:1; width:40px; height:40px; font-size:9.5px; box-shadow:0 0 0 5px var(--void), 0 4px 10px rgba(0,0,0,.5); }
+    .mile-media, .mile.flip .mile-media{ grid-column:2; grid-row:1; justify-self:start; justify-content:flex-start; margin-bottom:18px; }
+    .mile-text, .mile.flip .mile-text{ grid-column:1/-1; grid-row:2; justify-self:stretch; padding:0; text-align:left; margin-left:0; max-width:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    .reveal{ opacity:1; transform:none; }
+  }
+
+  :focus-visible{ outline:2px solid var(--orange); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <video autoplay muted loop playsinline poster="poster.jpg">
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <div class="logo-wrap">
+      <img src="logo.webp" alt="Slow Down Mo! — road sign logo" width="420" height="434">
+    </div>
+    <p class="hero-tag mono">
+      <b>Alt‑R&amp;B</b> <span class="sep">/</span> <b>Pluggnb</b> production house
+      <span class="sep">·</span> DKTR N9NE <span class="sep">·</span> Austin, TX
+    </p>
+  </div>
+  <div class="scroll-cue"><span>Read on</span><span class="stick"></span></div>
+</section>
+
+<section class="lore" id="lore">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">01</span> The route so far</span>
+    <h2 class="headline">Mile markers on the<br>way <span class="accent">here.</span></h2>
+    <p class="lede">Every sign starts somewhere. Here's the road SDM took to get to the console.</p>
+
+    <div class="route">
+
+      <div class="mile">
+        <div class="mile-media">
+          <div class="photo-tab w-lg rot-l">
+            <img src="lore/kid.webp" alt="SDM as a kid at his first setup" loading="lazy">
+            <span class="cap">SDM · early years</span>
+          </div>
+        </div>
+        <div class="mile-marker">AGE<br>06</div>
+        <div class="mile-text">
+          <div class="mile-age">Age 6</div>
+          <h3>First keys, first ear</h3>
+          <p>A beginner Yamaha keyboard becomes the first instrument. SDM starts chasing everything he hears on the radio and TV — not full chords, just single notes, worked out entirely by ear.</p>
+        </div>
+      </div>
+
+      <div class="mile flip">
+        <div class="mile-media">
+          <div class="photo-tab w-md rot-r">
+            <img src="lore/ps2.webp" alt="Sony PlayStation 2 console and DualShock controller" loading="lazy">
+            <span class="cap">PS2 · age 12</span>
+          </div>
+          <div class="photo-tab w-md rot-l">
+            <img src="lore/mg2.webp" alt="MTV Music Generator 2 game case for PlayStation 2" loading="lazy">
+            <span class="cap">Music Generator 2</span>
+          </div>
+        </div>
+        <div class="mile-marker">AGE<br>12</div>
+        <div class="mile-text">
+          <div class="mile-age">Age 12</div>
+          <h3>A game that taught the fundamentals</h3>
+          <p>A PS2 copy of <em>MTV Music Generator 2</em> turns out to be a real production tool disguised as a video game — SDM's first hands-on lesson in MIDI, BPM, and sequencing.</p>
+        </div>
+      </div>
+
+      <div class="mile">
+        <div class="mile-media">
+          <div class="photo-tab w-lg rot-l">
+            <img src="lore/reason.webp" alt="Propellerhead Reason software logo" loading="lazy">
+            <span class="cap">Reason · age 14</span>
+          </div>
+        </div>
+        <div class="mile-marker">AGE<br>14</div>
+        <div class="mile-text">
+          <div class="mile-age">Age 14</div>
+          <h3>The first real DAW</h3>
+          <p>SDM discovers a computer program called Reason and starts to really dig in — hundreds of beats made, one after another.</p>
+        </div>
+      </div>
+
+      <div class="mile flip">
+        <div class="mile-media">
+          <div class="photo-tab w-sm rot-r">
+            <img src="lore/fl.webp" alt="FL Studio logo" loading="lazy">
+            <span class="cap">FL Studio</span>
+          </div>
+          <div class="photo-tab w-sm rot-l">
+            <img src="lore/gb.webp" alt="GarageBand logo" loading="lazy">
+            <span class="cap">GarageBand</span>
+          </div>
+          <div class="photo-tab w-sm rot-r">
+            <img src="lore/pt.webp" alt="Avid Pro Tools packaging" loading="lazy">
+            <span class="cap">Pro Tools</span>
+          </div>
+        </div>
+        <div class="mile-marker">AGE<br>19</div>
+        <div class="mile-text">
+          <div class="mile-age">Age 19 · Hollywood</div>
+          <h3>Couch to couch</h3>
+          <p>SDM lands in Hollywood as a student and a fly on the wall — sessions with DanjaHandz, Stacy Barthe, Pharrell Williams, Chase N Cashe, Dem Jointz, Christopher Ciccone, Johnny Wright, Omarion, Chris Anokute and more, inside rooms at Westlake, Chalice, Paramount, No Excuses, The Record Plant, and Sunset Sound.</p>
+          <p>For a year straight he couch‑surfs from studio to studio with no rig of his own, learning to work whatever was already set up in the room — FL Studio, GarageBand, Pro Tools — just to stay in the session. Once he saves up for a laptop and Reason 4, he's back in the saddle. But in those rooms, the last thing anyone needed was more beats — it was SDM's toplines and songwriting that kept him in the room. Enough of it that he'd eventually move back to Texas. Austin, to be exact.</p>
+        </div>
+      </div>
+
+      <div class="mile epilogue">
+        <div class="mile-media">
+          <div class="photo-tab w-lg rot-l">
+            <img src="lore/mpc.webp" alt="Akai MPC One production hardware" loading="lazy">
+            <span class="cap">Akai MPC One · today</span>
+          </div>
+        </div>
+        <div class="mile-marker">TO<br>DAY</div>
+        <div class="mile-text">
+          <div class="mile-age">Today</div>
+          <h3>Full circle</h3>
+          <p>From a beginner's Yamaha to hardware again — every SLOW DOWN, MO! session now starts on an Akai MPC One.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="sound" id="sound">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">02</span> Sound ahead</span>
+    <h2 class="headline">Built on <span class="accent">one machine,</span><br>not a plugin chain.</h2>
+    <div class="sound-grid">
+      <p class="lede">
+        Every session starts on an <strong>Akai MPC One</strong> — pads, samples,
+        and hands, with nothing standing between the idea and the take.
+        The sound sits where Austin's low end meets a Tokyo night drive:
+        <strong>alt‑R&amp;B</strong> songwriting over <strong>pluggnb's</strong>
+        glassy 808s, pitched leads, and drifting pads. Slow, heavy, and precise —
+        built to make you ease off the gas.
+      </p>
+      <div class="sound-stats">
+        <div class="stat">
+          <div class="k mono">Rig</div>
+          <div class="v">Akai MPC One, hardware‑first workflow</div>
+        </div>
+        <div class="stat">
+          <div class="k mono">Lane</div>
+          <div class="v">Alt‑R&amp;B &amp; Pluggnb</div>
+        </div>
+        <div class="stat">
+          <div class="k mono">Base</div>
+          <div class="v">Austin, TX — bicultural Austin/Tokyo palette</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">03</span> Services rendered</span>
+    <h2 class="headline">Pick your <span class="accent">exit.</span></h2>
+    <div class="service-grid">
+      <div class="service">
+        <div class="tag-mono">01 · BEATS</div>
+        <h3>Custom Beats</h3>
+        <p>Pluggnb and alt‑R&amp;B instrumentals built from scratch to your reference and topline — exclusive or lease.</p>
+      </div>
+      <div class="service">
+        <div class="tag-mono">02 · MIX</div>
+        <h3>Mixing &amp; Mastering</h3>
+        <p>Vocal‑forward mixes tuned for streaming loudness, with a master that still hits on a car system.</p>
+      </div>
+      <div class="service">
+        <div class="tag-mono">03 · FULL</div>
+        <h3>Full Production</h3>
+        <p>Concept to finished record — writing sessions, arrangement, mix and master under one roof.</p>
+      </div>
+      <div class="service">
+        <div class="tag-mono">04 · SYNC</div>
+        <h3>Sync Licensing</h3>
+        <p>Cleared, catalog‑ready instrumentals and songs for film, TV, and brand placement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">04</span> Miles logged</span>
+    <div class="catalog-row">
+      <div>
+        <h2 class="headline">8 releases.<br>Still <span class="accent">counting.</span></h2>
+        <p class="lede">Catalog distributed through Venice and streaming now on Untitled.stream, under the DKTR N9NE / SLODOWNMO name.</p>
+        <a href="#" class="catalog-cta">Listen on Untitled.stream →</a>
+      </div>
+      <div class="drop-card">
+        <div class="tag-mono">ON‑CHAIN DROP</div>
+        <h4>"Washateria"</h4>
+        <p>9‑of‑9 limited edition on Solana — Metaplex pNFTs with a 9% royalty enforced on‑chain via Candy Machine v3.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="book" id="book">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">05</span> Last stop</span>
+    <h2 class="headline">Slow down.<br><span class="accent">Book the session.</span></h2>
+    <p class="lede">Studio time, beat leases, and full productions — Austin‑based, working worldwide.</p>
+    <div class="book-actions">
+      <a href="mailto:booking@slowdownmo.com" class="btn-primary">Email booking@slowdownmo.com</a>
+      <a href="#" class="btn-ghost">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="mono">© <span id="year"></span> Slow Down Mo! — DKTR N9NE</span>
+  <div class="rivet-row"><span></span><span></span><span></span></div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const items = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:.18 });
+    items.forEach(i=>io.observe(i));
+  } else {
+    items.forEach(i=>i.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
