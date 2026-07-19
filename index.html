@@ -258,22 +258,7 @@
   .stat .k{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); }
   .stat .v{ font-size:17px; color:var(--bone); margin-top:4px; }
 
-  /* ---- Pit stop / player ---- */
-  .pitstop{ background:var(--void-2); border-top:1px solid rgba(143,143,137,.15); }
-  .player{
-    display:grid; grid-template-columns:1fr 1.15fr; gap:44px;
-    margin-top:44px; align-items:start;
-  }
-  .now-playing{
-    border:1px solid rgba(143,143,137,.25); border-radius:10px;
-    padding:26px; background:rgba(255,255,255,.02);
-    position:sticky; top:24px;
-  }
-  .np-tag{ font-family:'IBM Plex Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:.16em; text-transform:uppercase; }
-  .np-title{ font-size:19px; color:var(--bone); margin:10px 0 4px; line-height:1.3; min-height:1.3em; }
-  .np-genre{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--steel); letter-spacing:.04em; min-height:1.4em; }
-
-  .transport{ display:flex; align-items:center; gap:12px; margin-top:24px; }
+  /* ---- Barricade beat player: shared transport button ---- */
   .tbtn{
     width:36px; height:36px; border-radius:50%; flex:none;
     background:radial-gradient(circle at 32% 28%, #1c1815, #0b0a08 72%);
@@ -284,50 +269,6 @@
   }
   .tbtn:hover{ border-color:var(--orange); color:var(--orange); }
   .tbtn svg{ width:13px; height:13px; fill:currentColor; }
-  .np-hint{
-    flex:1; text-align:center;
-    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--steel);
-  }
-
-  .frame-wrap{
-    margin-top:18px; border-radius:8px; overflow:hidden;
-    border:1px solid rgba(143,143,137,.25); background:#0d0c0a;
-  }
-  .frame-wrap iframe{ width:100%; height:260px; display:block; border:0; }
-
-  .np-note{ margin-top:18px; font-size:12.5px; color:var(--bone-dim); line-height:1.6; }
-  .np-note a{ color:var(--orange); text-decoration:none; border-bottom:1px solid var(--orange-dim); }
-
-  .tracklist{
-    max-height:560px; overflow-y:auto;
-    border:1px solid rgba(143,143,137,.18); border-radius:10px;
-  }
-  .track{
-    display:flex; align-items:center; gap:14px;
-    padding:13px 16px; border-bottom:1px solid rgba(143,143,137,.12);
-    cursor:pointer; transition:background .15s ease;
-  }
-  .track:last-child{ border-bottom:none; }
-  .track:hover{ background:rgba(255,255,255,.03); }
-  .track.active{ background:rgba(249,86,12,.09); }
-  .track .idx{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--steel); width:20px; flex:none; }
-  .track .t-meta{ flex:1; min-width:0; }
-  .track .t-title{ font-size:13.5px; color:var(--bone); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .track .t-tags{
-    font-family:'IBM Plex Mono',monospace; font-size:9.5px; color:var(--steel);
-    letter-spacing:.03em; text-transform:uppercase; white-space:nowrap;
-    overflow:hidden; text-overflow:ellipsis; margin-top:2px;
-  }
-  .track .t-play{
-    width:24px; height:24px; border-radius:50%; flex:none;
-    border:1.5px solid rgba(143,143,137,.4);
-    display:flex; align-items:center; justify-content:center; color:var(--steel);
-  }
-  .track .t-play svg{ width:8px; height:8px; fill:currentColor; }
-  .track.active .t-play{ border-color:var(--orange); color:var(--orange); }
-  .track.broken{ opacity:.35; pointer-events:none; }
-  .track.broken .t-tags::after{ content:' · unavailable'; }
 
   /* ---- Offer comparison: DETOUR / STRAIGHTAWAY ---- */
   .offer-compare{
@@ -554,8 +495,6 @@
     section{ padding:80px var(--edge); }
     footer{ flex-direction:column; align-items:flex-start; }
 
-    .player{ grid-template-columns:1fr; gap:28px; }
-    .now-playing{ position:static; }
     .offer-compare{ grid-template-columns:1fr; }
     .beat-transport{ flex-wrap:wrap; }
     .beat-progress-wrap{ order:1; flex-basis:100%; margin-top:14px; }
@@ -724,48 +663,9 @@
   </div>
 </section>
 
-<section class="pitstop" id="listen">
-  <div class="section-inner reveal">
-    <span class="plate"><span class="num">03</span> Pit stop</span>
-    <h2 class="headline">Rough drafts.<br>Real <span class="accent">range.</span></h2>
-    <p class="lede">34 quick AI sketches — the raw material, kept raw. This is roughly what shows up before a DETOUR rebuild.</p>
-
-    <div class="player">
-      <div class="now-playing">
-        <div class="np-tag">Now playing</div>
-        <div class="np-title" id="npTitle">Select a track</div>
-        <div class="np-genre" id="npGenre">—</div>
-
-        <div class="transport">
-          <button class="tbtn" id="btnPrev" aria-label="Previous track">
-            <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6L20 6v12z"/></svg>
-          </button>
-          <span class="np-hint">pick a track, or browse</span>
-          <button class="tbtn" id="btnNext" aria-label="Next track">
-            <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM4 6l10.5 6L4 18z"/></svg>
-          </button>
-        </div>
-
-        <div class="frame-wrap">
-          <iframe id="playerFrame" src="https://suno.com/embed/6e9531d3-f774-4403-a9f4-56b54689dd6a"
-            loading="lazy" allow="autoplay; encrypted-media" title="Suno track player"></iframe>
-        </div>
-
-        <p class="np-note">Generated with Suno — kept as reference sketches, not finished records.<br>
-          <a id="npLink" href="https://suno.com/song/6e9531d3-f774-4403-a9f4-56b54689dd6a" target="_blank" rel="noopener">Open this track on Suno →</a>
-          &nbsp;·&nbsp;
-          <a href="https://suno.com/playlist/c9ea3fb2-d25b-4c81-9f37-7ce61a57677c" target="_blank" rel="noopener">full playlist →</a>
-        </p>
-      </div>
-
-      <div class="tracklist" id="tracklist"></div>
-    </div>
-  </div>
-</section>
-
 <section class="barricade-section" id="beats">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">04</span> Barricade</span>
+    <span class="plate"><span class="num">03</span> Barricade</span>
     <h2 class="headline">Same instincts.<br><span class="accent">No shortcuts.</span></h2>
     <p class="lede">Three finished beats, built the long way — this is what leaves the shop.</p>
 
@@ -804,7 +704,7 @@
 
 <section class="services" id="services">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">05</span> Services rendered</span>
+    <span class="plate"><span class="num">04</span> Services rendered</span>
     <h2 class="headline">Pick your <span class="accent">exit.</span></h2>
     <div class="service-grid">
       <div class="service">
@@ -860,7 +760,7 @@
 
 <section class="catalog" id="catalog">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">06</span> Miles logged</span>
+    <span class="plate"><span class="num">05</span> Miles logged</span>
     <div class="catalog-row">
       <div>
         <h2 class="headline">8 releases.<br>Still <span class="accent">counting.</span></h2>
@@ -878,7 +778,7 @@
 
 <section class="book" id="book">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">07</span> Last stop</span>
+    <span class="plate"><span class="num">06</span> Last stop</span>
     <h2 class="headline">Slow down.<br><span class="accent">Book the session.</span></h2>
     <p class="lede">Studio time, beat leases, and full productions — Austin‑based, working worldwide.</p>
     <div class="book-actions">
@@ -907,103 +807,6 @@
   } else {
     items.forEach(i=>i.classList.add('in'));
   }
-</script>
-
-<script>
-  const TRACKS = [
-    { id:'6e9531d3-f774-4403-a9f4-56b54689dd6a', title:'INYAMI 153 (Remix)', tags:'indie pop · soft rock · trap bridge' },
-    { id:'53a93931-3a9b-4e0b-97d3-f3bad62cf9b8', title:'park that', tags:'LA pop · rnb · trap drums' },
-    { id:'1758c93b-8971-47b2-9a27-3b8345865b00', title:'Untitled', tags:'r&b · trap · soul' },
-    { id:'a7214d8a-78bf-433b-a50e-64dc3ce50fb8', title:'Untitled', tags:'japanese · west coast hiphop · trap' },
-    { id:'a99e1e25-9c6c-40cf-9bf4-db333cc52c5d', title:'Tender screw (Remix)', tags:'rnb · trap · hiphop' },
-    { id:'7562ba47-dd38-48ed-b68c-da43375451c0', title:'bluebonnet (Remix)', tags:'rnb · trap · soul' },
-    { id:'87d0648c-6f5a-4539-995d-1ee92806b4f2', title:'Untitled', tags:'rnb · trap · soul' },
-    { id:'9e7c5cd9-f16c-40b2-98fd-1a6ba7061a14', title:'jmesix 116 (Remix)', tags:'rnb · trap · soul' },
-    { id:'e18296f9-85d0-45e0-8167-f0e30eba639e', title:'Untitled', tags:'japanese · anime · rnb · trap' },
-    { id:'9049c1b3-d32c-4701-a31e-2faa810bc21a', title:'Slow Down Mo 1', tags:'trap · heavy 808 · 8‑bit arcade' },
-    { id:'e57df6df-7266-4cb9-8e3b-7856becbf032', title:'Untitled', tags:'experimental r&b · chillwave · 5/4' },
-    { id:'351be776-08b6-474d-a065-3ee799b89dbf', title:'Untitled', tags:'r&b · plug · trap · 5/4' },
-    { id:'fb22ccff-b50d-4f57-be4d-b4fc57f48f6d', title:'Untitled', tags:'r&b · plug · trap · 5/4' },
-    { id:'c20eddce-ee13-4a1e-9fda-2b8fb02936d1', title:'Untitled', tags:'experimental r&b · plug · trap' },
-    { id:'45287ff6-3d86-40a3-9698-fae878594f55', title:'Untitled', tags:'experimental r&b · plug · trap' },
-    { id:'d3ea33ef-de28-412b-b3e4-83bb3ee8b1ea', title:'prodbyzapz1 83 (Remix)', tags:'experimental r&b · trap · soul' },
-    { id:'f693eb79-ddc5-490b-8035-222070789863', title:'Untitled', tags:'acoustic · r&b · soul · trap' },
-    { id:'687f9105-7443-4ed0-a2a8-1982ed981a1b', title:'charm (Cover)', tags:'contemporary r&b · trap · 808' },
-    { id:'bc793434-8154-4d1f-9175-f010ef16dce7', title:'Untitled', tags:"80s synth‑r&b · Prince‑style" },
-    { id:'2ab382ca-843d-41d7-a5bd-18e90a0762f1', title:'Untitled', tags:'christmas · rnb · plug · trap' },
-    { id:'2ac4c9a3-c12c-4614-8db5-eccaf861e05c', title:'Untitled', tags:'christmas · rnb · plug · trap' },
-    { id:'efb7edc5-f2cc-4f69-bd64-427670dde9f1', title:'Untitled', tags:'hip hop · west coast · g funk' },
-    { id:'a4a3d3f8-218c-4a58-a8cf-792a92870566', title:'Untitled', tags:'plug · rnb · trap' },
-    { id:'31434e37-0388-4b84-8fd7-6f7a7620db62', title:'iamroofa 127 (R&B Ether Mix)', tags:'atmospheric r&b · sub‑bass' },
-    { id:'b1d0e897-b264-4bfe-8f2f-b70fea145f98', title:'ReelAudio‑39300 (Midnight Trap Soul Mix)', tags:'rnb trap‑soul · late night' },
-    { id:'32308c16-403c-48c9-ab61-8f01fcc1bd1a', title:'jmesix 116', tags:'rnb · baile funk · trap' },
-    { id:'67155056-efce-4e98-98b9-89a47f76f53f', title:'Sammy Davis Jr', tags:'rnb · trap · soul' },
-    { id:'20876d01-d34d-47bd-9179-eb6bd7469bdb', title:'Whenever U Ready (Interlude)', tags:'rnb · trap · singer‑songwriter' },
-    { id:'573a3cc7-6fa6-49ba-87ab-aab434b87730', title:'SpliffBanger', tags:'trap · drum and bass · rnb' },
-    { id:'764735b3-f0d3-42c6-abd9-51de8b1061f7', title:'SpliffBanger', tags:'rnb · trap · 808 · synth' },
-    { id:'a0bbe0fe-59f5-4fbc-a343-41426c7f1f7c', title:'Comeback', tags:'contemporary r&b · neo‑soul' },
-    { id:'1e612070-a5be-4270-b44e-b731308609e1', title:"Comeback (Plugg'n'B Drill Mix)", tags:"melodic drill · plugg'n'b" },
-    { id:'2c1d1a9f-937d-4725-b9f9-1914c6e0799d', title:'Yanked', tags:'rnb · plug · trap' },
-    { id:'df9ea827-ff6f-4e09-a017-f8de4b96fcb8', title:'audio [music] (1)', tags:'future bass · trap · 808' }
-  ];
-
-  let current = 0;
-
-  const listEl = document.getElementById('tracklist');
-  const npTitle = document.getElementById('npTitle');
-  const npGenre = document.getElementById('npGenre');
-  const playerFrame = document.getElementById('playerFrame');
-  const npLink = document.getElementById('npLink');
-
-  function embedUrl(id){ return `https://suno.com/embed/${id}`; }
-  function songUrl(id){ return `https://suno.com/song/${id}`; }
-
-  function renderList(){
-    listEl.innerHTML = TRACKS.map((t,i)=>`
-      <div class="track" data-i="${i}" role="button" tabindex="0">
-        <span class="idx">${String(i+1).padStart(2,'0')}</span>
-        <span class="t-play">
-          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-        <span class="t-meta">
-          <div class="t-title">${t.title}</div>
-          <div class="t-tags">${t.tags}</div>
-        </span>
-      </div>
-    `).join('');
-    listEl.querySelectorAll('.track').forEach(el=>{
-      el.addEventListener('click', ()=> loadTrack(parseInt(el.dataset.i, 10), true));
-      el.addEventListener('keydown', (e)=>{ if(e.key==='Enter') loadTrack(parseInt(el.dataset.i,10), true); });
-    });
-  }
-
-  function setActiveRow(){
-    listEl.querySelectorAll('.track').forEach(el=>{
-      el.classList.toggle('active', parseInt(el.dataset.i,10) === current);
-    });
-    const row = listEl.querySelector(`.track[data-i="${current}"]`);
-    if(row) row.scrollIntoView({ block:'nearest' });
-  }
-
-  function loadTrack(i){
-    if(i < 0 || i >= TRACKS.length) return;
-    current = i;
-    const t = TRACKS[current];
-    npTitle.textContent = t.title;
-    npGenre.textContent = t.tags;
-    playerFrame.src = embedUrl(t.id);
-    npLink.href = songUrl(t.id);
-    setActiveRow();
-  }
-
-  function next(){ loadTrack((current + 1) % TRACKS.length); }
-  function prev(){ loadTrack((current - 1 + TRACKS.length) % TRACKS.length); }
-
-  document.getElementById('btnNext').addEventListener('click', next);
-  document.getElementById('btnPrev').addEventListener('click', prev);
-
-  renderList();
-  loadTrack(0);
 </script>
 
 <script>
