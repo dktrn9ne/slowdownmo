@@ -245,18 +245,54 @@
   .photo-tab.w-md{ width:min(34vw, 150px); }
   .photo-tab.w-sm{ width:min(24vw, 108px); }
 
-  /* ---- Sound ---- */
-  .sound{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); }
-  .sound-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:start; }
-  .sound-stats{
-    display:grid; gap:18px; margin-top:8px;
+  /* ---- Placements ---- */
+  .placements{ background:var(--void); border-top:1px solid rgba(143,143,137,.15); }
+  .placement-grid{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:28px;
+    margin-top:44px;
   }
-  .stat{
-    border-left:2px solid var(--orange-dim);
-    padding:6px 0 6px 18px;
+  .placement-card{
+    border:1px solid rgba(143,143,137,.2); border-radius:10px;
+    overflow:hidden; background:rgba(255,255,255,.02);
   }
-  .stat .k{ font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--steel); }
-  .stat .v{ font-size:17px; color:var(--bone); margin-top:4px; }
+  .placement-thumb{
+    position:relative; aspect-ratio:16/9; background:#000;
+    overflow:hidden; cursor:pointer;
+  }
+  .placement-thumb img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .35s ease;
+  }
+  .placement-card:hover .placement-thumb img{ transform:scale(1.05); }
+  .placement-thumb::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.5));
+  }
+  .placement-thumb iframe{ width:100%; height:100%; display:block; border:0; }
+  .placement-play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:58px; height:58px; border-radius:50%; z-index:2;
+    background:rgba(10,9,8,.72); border:2px solid var(--orange);
+    display:flex; align-items:center; justify-content:center; color:var(--orange);
+    cursor:pointer; transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .placement-play svg{ width:20px; height:20px; fill:currentColor; margin-left:3px; }
+  .placement-card:hover .placement-play{
+    transform:translate(-50%,-50%) scale(1.08);
+    background:var(--orange); color:var(--void);
+  }
+  .placement-meta{ padding:16px 18px 18px; }
+  .placement-title{ font-size:16px; color:var(--bone); }
+  .placement-artist{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--steel);
+    letter-spacing:.08em; text-transform:uppercase; margin-top:4px;
+  }
+  .placement-link{
+    display:inline-block; margin-top:10px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--orange); text-decoration:none;
+    border-bottom:1px solid var(--orange-dim);
+  }
 
   /* ---- Barricade beat player: shared transport button ---- */
   .tbtn{
@@ -479,6 +515,32 @@
   }
   .btn-ghost:hover{ border-color:var(--orange); color:var(--orange); }
 
+  /* ---- On ramp: email signup ---- */
+  .onramp{ background:var(--void-2); border-top:1px solid rgba(143,143,137,.15); }
+  .signup-form{
+    display:flex; gap:12px; flex-wrap:wrap;
+    margin-top:36px; max-width:520px;
+  }
+  .signup-input{
+    flex:1; min-width:220px;
+    font-family:'IBM Plex Mono',monospace; font-size:14px;
+    color:var(--bone); background:rgba(255,255,255,.03);
+    border:1.5px solid rgba(143,143,137,.3); border-radius:4px;
+    padding:15px 16px;
+    transition:border-color .15s ease;
+  }
+  .signup-input::placeholder{ color:var(--steel); }
+  .signup-input:focus{ outline:none; border-color:var(--orange); }
+  .signup-btn{ flex:none; cursor:pointer; }
+  .signup-btn:disabled{ opacity:.6; cursor:default; transform:none !important; box-shadow:0 6px 0 var(--rust) !important; }
+  .signup-msg{
+    margin-top:14px; min-height:1.4em;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.03em;
+    color:var(--steel);
+  }
+  .signup-msg.success{ color:var(--teal); }
+  .signup-msg.error{ color:var(--orange); }
+
   /* ---- Footer ---- */
   footer{
     padding:36px var(--edge) 44px;
@@ -494,7 +556,7 @@
 
   /* ---------- Responsive ---------- */
   @media (max-width:760px){
-    .sound-grid{ grid-template-columns:1fr; gap:38px; }
+    .placement-grid{ grid-template-columns:1fr; gap:20px; }
     .service-grid{ grid-template-columns:1fr; }
     .catalog-row{ flex-direction:column; align-items:flex-start; }
     section{ padding:80px var(--edge); }
@@ -753,31 +815,38 @@
   </div>
 </section>
 
-<section class="sound" id="sound">
+<section class="placements" id="placements">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">03</span> Sound ahead</span>
-    <h2 class="headline">Built on <span class="accent">one machine,</span><br>not a plugin chain.</h2>
-    <div class="sound-grid">
-      <p class="lede">
-        Every session starts on an <strong>Akai MPC One</strong> — pads, samples,
-        and hands, with nothing standing between the idea and the take.
-        The sound sits where Austin's low end meets a Tokyo night drive:
-        <strong>alt‑R&amp;B</strong> songwriting over <strong>pluggnb's</strong>
-        glassy 808s, pitched leads, and drifting pads. Slow, heavy, and precise —
-        built to make you ease off the gas.
-      </p>
-      <div class="sound-stats">
-        <div class="stat">
-          <div class="k mono">Rig</div>
-          <div class="v">Akai MPC One, hardware‑first workflow</div>
+    <span class="plate"><span class="num">03</span> Placements</span>
+    <h2 class="headline">Cuts that made it<br><span class="accent">out the door.</span></h2>
+    <p class="lede">Beats that left the shop and ended up on someone else's record.</p>
+
+    <div class="placement-grid">
+      <div class="placement-card" data-yt="PDcBj7YJWW4">
+        <div class="placement-thumb">
+          <img src="https://img.youtube.com/vi/PDcBj7YJWW4/hqdefault.jpg" alt="SCOOTA BELIEVES by Lil Milez" loading="lazy">
+          <button class="placement-play" aria-label="Play SCOOTA BELIEVES">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
         </div>
-        <div class="stat">
-          <div class="k mono">Lane</div>
-          <div class="v">Alt‑R&amp;B &amp; Pluggnb</div>
+        <div class="placement-meta">
+          <div class="placement-title">SCOOTA BELIEVES</div>
+          <div class="placement-artist">Lil Milez</div>
+          <a class="placement-link" href="https://www.youtube.com/watch?v=PDcBj7YJWW4" target="_blank" rel="noopener">Watch on YouTube →</a>
         </div>
-        <div class="stat">
-          <div class="k mono">Base</div>
-          <div class="v">Austin, TX — bicultural Austin/Tokyo palette</div>
+      </div>
+
+      <div class="placement-card" data-yt="HWLJiExfdw4">
+        <div class="placement-thumb">
+          <img src="https://img.youtube.com/vi/HWLJiExfdw4/hqdefault.jpg" alt="Mata Mi Dolor by Sam Sage" loading="lazy">
+          <button class="placement-play" aria-label="Play Mata Mi Dolor">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+        <div class="placement-meta">
+          <div class="placement-title">Mata Mi Dolor</div>
+          <div class="placement-artist">Sam Sage</div>
+          <a class="placement-link" href="https://www.youtube.com/watch?v=HWLJiExfdw4" target="_blank" rel="noopener">Watch on YouTube →</a>
         </div>
       </div>
     </div>
@@ -858,9 +927,24 @@
   </div>
 </section>
 
+<section class="onramp" id="onramp">
+  <div class="section-inner reveal">
+    <span class="plate"><span class="num">06</span> On ramp</span>
+    <h2 class="headline">Merge in.<br><span class="accent">Everyone's headed the same way.</span></h2>
+    <p class="lede">Clients and producers, same list — new placements, beat drops, open booking slots, and the occasional studio tip. No spam, unsubscribe anytime.</p>
+
+    <form class="signup-form" id="signupForm" action="https://formspree.io/f/mvzerzev" method="POST">
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="email" name="email" id="signupEmail" class="signup-input" placeholder="you@email.com" required autocomplete="email">
+      <button type="submit" class="btn-primary signup-btn">Join the list</button>
+    </form>
+    <p class="signup-msg" id="signupMsg" aria-live="polite"></p>
+  </div>
+</section>
+
 <section class="book" id="book">
   <div class="section-inner reveal">
-    <span class="plate"><span class="num">06</span> Last stop</span>
+    <span class="plate"><span class="num">07</span> Last stop</span>
     <h2 class="headline">Slow down.<br><span class="accent">Book the session.</span></h2>
     <p class="lede">Studio time, beat leases, and full productions — Austin‑based, working worldwide.</p>
     <div class="book-actions">
@@ -1013,6 +1097,61 @@
 
   renderBeatTabs();
   loadBeat(0, true);
+</script>
+
+<script>
+  document.querySelectorAll('.placement-thumb').forEach(thumb=>{
+    thumb.addEventListener('click', ()=>{
+      const card = thumb.closest('.placement-card');
+      const id = card.dataset.yt;
+      thumb.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+        allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen
+        title="YouTube video player"></iframe>`;
+    }, { once:true });
+  });
+</script>
+
+<script>
+  const signupForm = document.getElementById('signupForm');
+  const signupMsg = document.getElementById('signupMsg');
+
+  signupForm.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const btn = signupForm.querySelector('.signup-btn');
+    const originalLabel = btn.textContent;
+
+    if(signupForm.action.includes('YOUR_FORM_ID')){
+      signupMsg.textContent = 'Signup form not connected yet — add your Formspree endpoint.';
+      signupMsg.className = 'signup-msg error';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Joining…';
+    signupMsg.textContent = '';
+    signupMsg.className = 'signup-msg';
+
+    try{
+      const res = await fetch(signupForm.action, {
+        method: 'POST',
+        body: new FormData(signupForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if(res.ok){
+        signupMsg.textContent = "You're on the list — welcome aboard.";
+        signupMsg.className = 'signup-msg success';
+        signupForm.reset();
+      } else {
+        throw new Error('bad status');
+      }
+    } catch(err){
+      signupMsg.textContent = "Couldn't submit — email booking@slowdownmo.com directly and I'll add you.";
+      signupMsg.className = 'signup-msg error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalLabel;
+    }
+  });
 </script>
 
 <div class="signfeed" id="signfeed" aria-label="Producer news ticker">
