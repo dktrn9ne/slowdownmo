@@ -1070,5 +1070,5 @@
   window.addEventListener('resize', sizeAndAnimate);
 </script>
 
-<script>const beatFrame=document.getElementById('beatMachine');window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==beatFrame.contentWindow||event.data?.type!=='slowdownmo-machine-height')return;const h=Number(event.data.height);if(Number.isFinite(h)&&h>=400&&h<=8000)beatFrame.style.height=Math.ceil(h)+'px';});document.addEventListener('visibilitychange',()=>{if(document.hidden)beatFrame.contentWindow?.postMessage({type:'slowdownmo-machine-pause'},location.origin);});</script></body>
+<script>const beatFrame=document.getElementById('beatMachine');window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==beatFrame.contentWindow||event.data?.type!=='slowdownmo-machine-height')return;const h=Number(event.data.height);if(Number.isFinite(h)&&h>=400&&h<=8000)beatFrame.style.height=Math.ceil(h)+'px';});document.querySelectorAll('.placement-play').forEach(button=>button.addEventListener('click',()=>beatFrame.contentWindow?.postMessage({type:'slowdownmo-machine-pause'},location.origin)));document.addEventListener('visibilitychange',()=>{if(document.hidden)beatFrame.contentWindow?.postMessage({type:'slowdownmo-machine-pause'},location.origin);});</script></body>
 </html>
